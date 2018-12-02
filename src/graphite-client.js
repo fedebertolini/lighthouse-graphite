@@ -7,13 +7,13 @@ class client {
     }
 
     send (metrics) {
-        const values = Object.keys(metrics).slice(0, 5);
+        const values = Object.keys(metrics);
         const graphiteMetrics = {};
 
         values.forEach((metricName) => {
-            graphiteMetrics[`${this.metricPrefix}${metricName}.min`] = values[metricName].min;
-            graphiteMetrics[`${this.metricPrefix}${metricName}.max`] = values[metricName].max;
-            graphiteMetrics[`${this.metricPrefix}${metricName}.mean`] = values[metricName].mean;
+            graphiteMetrics[`${this.metricPrefix}${metricName}.min`] = metrics[metricName].min;
+            graphiteMetrics[`${this.metricPrefix}${metricName}.max`] = metrics[metricName].max;
+            graphiteMetrics[`${this.metricPrefix}${metricName}.mean`] = metrics[metricName].mean;
             graphiteMetrics[`${this.metricPrefix}${metricName}.median`] = metrics[metricName].median;
         })
 
