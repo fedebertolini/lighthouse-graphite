@@ -2,7 +2,7 @@ const mock = require('./result-mock.json');
 const mapper = require('../src/result-mapper');
 
 describe('result-mapper', () => {
-    it('maps the lighhouse result to a reduced metrics object', () => {
+    it('maps the lighthouse result to a reduced metrics object', () => {
         const reducedObject = mapper.map(mock);
 
         expect(reducedObject).toEqual({

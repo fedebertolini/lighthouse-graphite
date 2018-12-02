@@ -11,7 +11,7 @@
     "url": "git+https://github.com/fedebertolini/lighthouse-graphite.git"
   },
   "keywords": [
-    "lighhouse",
+    "lighthouse",
     "graphite",
     "grafana",
     "performance"

@@ -51,7 +51,7 @@ lighthouse.example_com.total-time.median 4627
 ```
 
 ## Metrics
-The app will collect a sub-set of metrics returned by `lighhouse`, most of them are related to performance. The documentation of these metrics can be found in the [Audit Reference section](https://developers.google.com/web/tools/lighthouse/) of the Lighthouse documentation.
+The app will collect a sub-set of metrics returned by `lighthouse`, most of them are related to performance. The documentation of these metrics can be found in the [Audit Reference section](https://developers.google.com/web/tools/lighthouse/) of the Lighthouse documentation.
 
 The list of the collected metrics is:
 - first-contentful-paint
