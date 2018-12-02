@@ -11,10 +11,18 @@ class client {
         const graphiteMetrics = {};
 
         values.forEach((metricName) => {
-            graphiteMetrics[`${this.metricPrefix}${metricName}.min`] = metrics[metricName].min;
-            graphiteMetrics[`${this.metricPrefix}${metricName}.max`] = metrics[metricName].max;
-            graphiteMetrics[`${this.metricPrefix}${metricName}.mean`] = metrics[metricName].mean;
-            graphiteMetrics[`${this.metricPrefix}${metricName}.median`] = metrics[metricName].median;
+            if (metrics[metricName].min !== undefined) {
+                graphiteMetrics[`${this.metricPrefix}${metricName}.min`] = metrics[metricName].min;
+            }
+            if (metrics[metricName].max !== undefined) {
+                graphiteMetrics[`${this.metricPrefix}${metricName}.max`] = metrics[metricName].max;
+            }
+            if (metrics[metricName].mean !== undefined) {
+                graphiteMetrics[`${this.metricPrefix}${metricName}.mean`] = metrics[metricName].mean;
+            }
+            if (metrics[metricName].median !== undefined) {
+                graphiteMetrics[`${this.metricPrefix}${metricName}.median`] = metrics[metricName].median;
+            }
         })
 
         return new Promise((resolve, reject) => {
