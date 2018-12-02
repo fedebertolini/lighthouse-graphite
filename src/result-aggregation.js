@@ -1,11 +1,18 @@
-module.exports = (resultsArray = []) => {
+module.exports = (resultsArray = [], metricsBlacklist = [], functionBlacklist = []) => {
     if (!resultsArray.length) {
         throw new Error('param `resultsArray` must be an array with at least one element');
     }
 
+    const blacklistReducer = (map, key) => {
+        map[key] = true;
+        return map;
+    };
+    const metricsBlacklistMap = metricsBlacklist.reduce(blacklistReducer, {});
+    const functionBlacklistMap = functionBlacklist.reduce(blacklistReducer, {});
+
+    const keys = Object.keys(resultsArray[0]).filter(metric => !metricsBlacklistMap[metric]);
     const aggregatedResult = {};
 
-    const keys = Object.keys(resultsArray[0]);
     keys.forEach((key) => {
         aggregatedResult[key] = {};
 
@@ -19,10 +26,18 @@ module.exports = (resultsArray = []) => {
         }
         const sortedValues = values.sort(sortNumbers);
 
-        aggregatedResult[key].mean = Math.floor(sum / resultsArray.length);
-        aggregatedResult[key].min = sortedValues[0];
-        aggregatedResult[key].max = sortedValues[resultsArray.length - 1];
-        aggregatedResult[key].median = median(sortedValues);
+        if (!functionBlacklistMap.min) {
+            aggregatedResult[key].min = sortedValues[0];
+        }
+        if (!functionBlacklistMap.max) {
+            aggregatedResult[key].max = sortedValues[resultsArray.length - 1];
+        }
+        if (!functionBlacklistMap.mean) {
+            aggregatedResult[key].mean = Math.floor(sum / resultsArray.length);
+        }
+        if (!functionBlacklistMap.median) {
+            aggregatedResult[key].median = median(sortedValues);
+        }
     });
 
     return aggregatedResult;

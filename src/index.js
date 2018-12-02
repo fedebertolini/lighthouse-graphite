@@ -11,6 +11,8 @@ const url = argv._[0];
 const runs = argv.runs || 3;
 const graphiteHost = argv['graphite-host'];
 const graphitePrefix = argv['graphite-prefix'] || '';
+const metricsBlacklist = argv['metrics-blacklist'] ? argv['metrics-blacklist'].split(',') : [];
+const functionBlacklist = argv['function-blacklist'] ? argv['function-blacklist'].split(',') : [];
 
 if (!graphiteHost) {
     console.warn('`--graphite-host` argument not defined, will skip sending metrics to graphite');
@@ -29,7 +31,7 @@ const results = [];
             results.push(result);
         }
 
-        const aggregatedResults = aggregate(results);
+        const aggregatedResults = aggregate(results, metricsBlacklist, functionBlacklist);
 
         if (graphiteHost) {
             const graphiteClient = new GraphiteClient(graphiteHost, graphitePrefix);
