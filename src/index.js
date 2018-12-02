@@ -1,5 +1,6 @@
 const argv = require('minimist')(process.argv.slice(2));
 const runner = require('./runner');
+const aggregate = require('./result-aggregation');
 
 if (argv._.length !== 1) {
     console.error('One and only one url must be provided (i.e. `lighthouse-graphite https://www.example.com`');
@@ -24,5 +25,6 @@ const results = [];
         console.error(error);
     }
 
-    console.log(results);
+    const aggregatedResults = aggregate(results);
+    console.log(aggregatedResults);
 })();
