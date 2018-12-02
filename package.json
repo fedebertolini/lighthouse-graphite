@@ -1,0 +1,30 @@
+{
+  "name": "lighthouse-graphite",
+  "version": "0.0.1",
+  "description": "NodeJS app that get metrics from a website using lighthouse and sends them to a graphite service",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fedebertolini/lighthouse-graphite.git"
+  },
+  "keywords": [
+    "lighhouse",
+    "graphite",
+    "grafana",
+    "performance"
+  ],
+  "author": "Federico Bertolini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fedebertolini/lighthouse-graphite/issues"
+  },
+  "homepage": "https://github.com/fedebertolini/lighthouse-graphite#readme",
+  "dependencies": {
+    "chrome-launcher": "~0.10.5",
+    "jest": "~23.6.0",
+    "lighthouse": "~4.0.0-alpha.2-3.2.1"
+  }
+}

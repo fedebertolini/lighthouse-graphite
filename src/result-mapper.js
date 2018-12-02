@@ -1,0 +1,18 @@
+exports.map = (result) => ({
+    'first-contentful-paint': Math.floor(result.audits['first-contentful-paint'].rawValue),
+    'first-meaningful-paint': Math.floor(result.audits['first-meaningful-paint'].rawValue),
+    'speed-index': Math.floor(result.audits['speed-index'].rawValue),
+    'estimated-input-latency': Math.floor(result.audits['estimated-input-latency'].rawValue),
+    'time-to-first-byte': Math.floor(result.audits['time-to-first-byte'].rawValue),
+    'first-cpu-idle': Math.floor(result.audits['first-cpu-idle'].rawValue),
+    'interactive': Math.floor(result.audits['interactive'].rawValue),
+    'network-requests': result.audits['network-requests'].rawValue,
+    'total-byte-weight': result.audits['total-byte-weight'].rawValue,
+    'dom-size': result.audits['dom-size'].rawValue,
+    'performance-score': result.categories.performance.score * 100,
+    'pwa-score': result.categories.pwa.score * 100,
+    'accessibility-score': result.categories.accessibility.score * 100,
+    'best-practices-score': result.categories['best-practices'].score * 100,
+    'seo-score': result.categories.seo.score * 100,
+    'total-time': result.timing.total,
+});
