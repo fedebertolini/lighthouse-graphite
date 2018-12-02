@@ -1,13 +1,28 @@
+const argv = require('minimist')(process.argv.slice(2));
 const runner = require('./runner');
+
+if (argv._.length !== 1) {
+    console.error('One and only one url must be provided (i.e. `lighthouse-graphite https://www.example.com`');
+    return;
+}
+const url = argv._[0];
+const runs = argv.runs || 3;
+
+const options = {
+    chromeFlags: ['--no-sandbox', '--headless', '--incognito'],
+};
+
+const results = [];
 
 (async () => {
     try {
-        const options = {
-            chromeFlags: ['--no-sandbox --headless'],
-        };
-        const result = await runner.run('https://www.example.com', options);
-        console.log(result);
+        for (let i = 0; i < runs; i++) {
+            const result = await runner.run(url, options);
+            results.push(result);
+        }
     } catch (error) {
         console.error(error);
     }
+
+    console.log(results);
 })();

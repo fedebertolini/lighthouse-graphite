@@ -25,6 +25,7 @@
   "dependencies": {
     "chrome-launcher": "~0.10.5",
     "jest": "~23.6.0",
-    "lighthouse": "~4.0.0-alpha.2-3.2.1"
+    "lighthouse": "~4.0.0-alpha.2-3.2.1",
+    "minimist": "~1.2.0"
   }
 }
