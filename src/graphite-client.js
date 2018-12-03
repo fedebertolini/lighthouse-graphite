@@ -27,6 +27,7 @@ class client {
 
         return new Promise((resolve, reject) => {
             this.client.write(graphiteMetrics, (err) => {
+                this.client.end();
                 if (err) {
                     reject(err);
                 }

@@ -6,8 +6,10 @@ jest.mock('graphite');
 describe('graphite-client', () => {
     it('sends all metrics to graphite', async () => {
         const writeMock = jest.fn((metrics, callback) => callback());
+        const endMock = jest.fn();
         graphite.createClient = jest.fn(() => ({
             write: writeMock,
+            end: endMock,
         }));
 
         const client = new GraphiteClient('example.com', 'my-prefix');
@@ -37,5 +39,6 @@ describe('graphite-client', () => {
             'my-prefix.time-to-first-byte.mean': 121,
             'my-prefix.time-to-first-byte.median': 110,
         }, expect.any(Function));
+        expect(endMock).toHaveBeenCalled();
     });
 });
