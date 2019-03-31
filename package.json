@@ -30,7 +30,7 @@
     "chrome-launcher": "~0.10.5",
     "graphite": "~0.1.4",
     "jest": "~23.6.0",
-    "lighthouse": "~4.0.0",
+    "lighthouse": "~4.2.0",
     "minimist": "~1.2.0"
   }
 }
