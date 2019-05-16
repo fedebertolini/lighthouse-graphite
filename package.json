@@ -27,9 +27,9 @@
   },
   "homepage": "https://github.com/fedebertolini/lighthouse-graphite#readme",
   "dependencies": {
-    "chrome-launcher": "~0.10.5",
+    "chrome-launcher": "~0.10.7",
     "graphite": "~0.1.4",
-    "lighthouse": "~4.2.0",
+    "lighthouse": "~5.0.0",
     "minimist": "~1.2.0"
   },
   "devDependencies": {
