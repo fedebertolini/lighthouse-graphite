@@ -12,7 +12,7 @@ describe('result-mapper', () => {
             'estimated-input-latency': 12,
             'time-to-first-byte': 109,
             'first-cpu-idle': 900,
-            'interactive': 903,
+            interactive: 903,
             'network-requests': 2,
             'total-byte-weight': 1490,
             'dom-size': 13,

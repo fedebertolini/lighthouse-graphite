@@ -6,7 +6,9 @@ const aggregate = require('./result-aggregation');
 const GraphiteClient = require('./graphite-client');
 
 if (argv._.length !== 1) {
-    console.error('One and only one url must be provided (i.e. `lighthouse-graphite https://www.example.com`');
+    console.error(
+        'One and only one url must be provided (i.e. `lighthouse-graphite https://www.example.com`'
+    );
     return;
 }
 const url = argv._[0];

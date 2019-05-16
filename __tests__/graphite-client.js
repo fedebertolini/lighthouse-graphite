@@ -29,16 +29,19 @@ describe('graphite-client', () => {
         });
 
         expect(graphite.createClient).toHaveBeenCalledWith('plaintext://example.com');
-        expect(writeMock).toHaveBeenCalledWith({
-            'my-prefix.interactive.min': 5,
-            'my-prefix.interactive.max': 100,
-            'my-prefix.interactive.mean': 50,
-            'my-prefix.interactive.median': 60,
-            'my-prefix.time-to-first-byte.min': 50,
-            'my-prefix.time-to-first-byte.max': 200,
-            'my-prefix.time-to-first-byte.mean': 121,
-            'my-prefix.time-to-first-byte.median': 110,
-        }, expect.any(Function));
+        expect(writeMock).toHaveBeenCalledWith(
+            {
+                'my-prefix.interactive.min': 5,
+                'my-prefix.interactive.max': 100,
+                'my-prefix.interactive.mean': 50,
+                'my-prefix.interactive.median': 60,
+                'my-prefix.time-to-first-byte.min': 50,
+                'my-prefix.time-to-first-byte.max': 200,
+                'my-prefix.time-to-first-byte.mean': 121,
+                'my-prefix.time-to-first-byte.median': 110,
+            },
+            expect.any(Function)
+        );
         expect(endMock).toHaveBeenCalled();
     });
 });

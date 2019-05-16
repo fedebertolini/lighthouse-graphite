@@ -6,11 +6,11 @@ class client {
         this.metricPrefix = metricPrefix ? `${metricPrefix}.` : '';
     }
 
-    send (metrics) {
+    send(metrics) {
         const values = Object.keys(metrics);
         const graphiteMetrics = {};
 
-        values.forEach((metricName) => {
+        values.forEach(metricName => {
             if (metrics[metricName].min !== undefined) {
                 graphiteMetrics[`${this.metricPrefix}${metricName}.min`] = metrics[metricName].min;
             }
@@ -18,21 +18,23 @@ class client {
                 graphiteMetrics[`${this.metricPrefix}${metricName}.max`] = metrics[metricName].max;
             }
             if (metrics[metricName].mean !== undefined) {
-                graphiteMetrics[`${this.metricPrefix}${metricName}.mean`] = metrics[metricName].mean;
+                graphiteMetrics[`${this.metricPrefix}${metricName}.mean`] =
+                    metrics[metricName].mean;
             }
             if (metrics[metricName].median !== undefined) {
-                graphiteMetrics[`${this.metricPrefix}${metricName}.median`] = metrics[metricName].median;
+                graphiteMetrics[`${this.metricPrefix}${metricName}.median`] =
+                    metrics[metricName].median;
             }
-        })
+        });
 
         return new Promise((resolve, reject) => {
-            this.client.write(graphiteMetrics, (err) => {
+            this.client.write(graphiteMetrics, err => {
                 this.client.end();
                 if (err) {
                     reject(err);
                 }
                 resolve();
-            })
+            });
         });
     }
 }

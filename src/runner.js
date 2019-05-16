@@ -7,7 +7,7 @@ exports.run = (url, options, config = null) => {
         options.port = chrome.port;
         return lighthouse(url, options, config)
             .then(result => chrome.kill().then(() => mapper.map(result.lhr)))
-            .catch((error) => {
+            .catch(error => {
                 if (chrome) {
                     chrome.kill();
                 }

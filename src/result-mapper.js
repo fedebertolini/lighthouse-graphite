@@ -1,11 +1,11 @@
-exports.map = (result) => ({
+exports.map = result => ({
     'first-contentful-paint': Math.floor(result.audits['first-contentful-paint'].rawValue),
     'first-meaningful-paint': Math.floor(result.audits['first-meaningful-paint'].rawValue),
     'speed-index': Math.floor(result.audits['speed-index'].rawValue),
     'estimated-input-latency': Math.floor(result.audits['estimated-input-latency'].rawValue),
     'time-to-first-byte': Math.floor(result.audits['time-to-first-byte'].rawValue),
     'first-cpu-idle': Math.floor(result.audits['first-cpu-idle'].rawValue),
-    'interactive': Math.floor(result.audits['interactive'].rawValue),
+    interactive: Math.floor(result.audits['interactive'].rawValue),
     'network-requests': result.audits['network-requests'].rawValue,
     'total-byte-weight': result.audits['total-byte-weight'].rawValue,
     'dom-size': result.audits['dom-size'].rawValue,

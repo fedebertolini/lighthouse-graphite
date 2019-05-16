@@ -13,7 +13,7 @@ module.exports = (resultsArray = [], metricsBlacklist = [], functionBlacklist = 
     const keys = Object.keys(resultsArray[0]).filter(metric => !metricsBlacklistMap[metric]);
     const aggregatedResult = {};
 
-    keys.forEach((key) => {
+    keys.forEach(key => {
         aggregatedResult[key] = {};
 
         const values = [];
@@ -45,7 +45,7 @@ module.exports = (resultsArray = [], metricsBlacklist = [], functionBlacklist = 
 
 const sortNumbers = (a, b) => a - b;
 
-const median = (values) => {
+const median = values => {
     if (values.length === 1) return values[0];
     const half = Math.floor(values.length / 2);
     return values[half];
