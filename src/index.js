@@ -17,6 +17,9 @@ const graphiteHost = argv['graphite-host'];
 const graphitePrefix = argv['graphite-prefix'] || '';
 const metricsBlacklist = argv['metrics-blacklist'] ? argv['metrics-blacklist'].split(',') : [];
 const functionBlacklist = argv['function-blacklist'] ? argv['function-blacklist'].split(',') : [];
+const blockedUrlPatterns = argv['blocked-url-patterns']
+    ? argv['blocked-url-patterns'].split(',')
+    : [];
 
 if (!graphiteHost) {
     console.warn('`--graphite-host` argument not defined, will skip sending metrics to graphite');
@@ -25,13 +28,21 @@ if (!graphiteHost) {
 const options = {
     chromeFlags: ['--no-sandbox', '--headless', '--incognito'],
 };
+const config = {
+    extends: 'lighthouse:default',
+    passes: [
+        {
+            blockedUrlPatterns,
+        },
+    ],
+};
 
 const results = [];
 
 (async () => {
     try {
         for (let i = 0; i < runs; i++) {
-            const result = await runner.run(url, options);
+            const result = await runner.run(url, options, config);
             results.push(result);
         }
 
