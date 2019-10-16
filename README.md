@@ -18,6 +18,7 @@ NodeJS app that get metrics from a website using [lighthouse](https://github.com
 -   `--metrics-blacklist` (Values separated by commas, defaults to empty string): set this argument to ignore one or more metrics from being sent to graphite. This is useful when you have a limit on the number of metrics stored by graphite. Names of metrics are listed below.
 -   `--function-blacklist` (Values separated by commas, defaults to empty string): set this argument to ignore one or more aggregation functions from being sent to graphite. This is useful when you have a limit on the number of metrics stored by graphite. Possible values: `min`, `max`, `mean` and `median`.
 -   `--blocked-url-patterns` (Values separated by commas, defaults to empty string): set this argument to tell Chrome what URLs of requests to block while loading the page. Basic wildcard support using `*`.
+-   `--chrome-flags` (Values separated by commas, defaults to `--no-sandbox,--headless,--incognito`): set this to pass custom flags to Chrome.
 
 The following command will run `lighthouse` 5 times on `https://www.example.com`, ignore the `mean` and `max` functions, and ignore the `seo-score` and `best-practices-score` metrics:
 

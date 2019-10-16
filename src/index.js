@@ -20,13 +20,14 @@ const functionBlacklist = argv['function-blacklist'] ? argv['function-blacklist'
 const blockedUrlPatterns = argv['blocked-url-patterns']
     ? argv['blocked-url-patterns'].split(',')
     : [];
+const chromeFlags = argv['chrome-flags'] ? argv['chrome-flags'].split(',') : ['--no-sandbox', '--headless', '--incognito'];
 
 if (!graphiteHost) {
     console.warn('`--graphite-host` argument not defined, will skip sending metrics to graphite');
 }
 
 const options = {
-    chromeFlags: ['--no-sandbox', '--headless', '--incognito'],
+    chromeFlags,
 };
 const config = {
     extends: 'lighthouse:default',
