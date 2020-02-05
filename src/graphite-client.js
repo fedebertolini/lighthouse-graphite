@@ -1,6 +1,6 @@
 const graphite = require('graphite');
 
-class client {
+class Client {
     constructor(domain, metricPrefix) {
         this.client = graphite.createClient(`plaintext://${domain}`);
         this.metricPrefix = metricPrefix ? `${metricPrefix}.` : '';
@@ -37,6 +37,10 @@ class client {
             });
         });
     }
+
+    close() {
+        this.client.end();
+    }
 }
 
-module.exports = client;
+module.exports = Client;
