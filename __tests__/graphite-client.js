@@ -20,7 +20,7 @@ describe('graphite-client', () => {
                 mean: 50,
                 median: 60,
             },
-            'time-to-first-byte': {
+            'server-response-time': {
                 min: 50,
                 max: 200,
                 mean: 121,
@@ -35,10 +35,10 @@ describe('graphite-client', () => {
                 'my-prefix.interactive.max': 100,
                 'my-prefix.interactive.mean': 50,
                 'my-prefix.interactive.median': 60,
-                'my-prefix.time-to-first-byte.min': 50,
-                'my-prefix.time-to-first-byte.max': 200,
-                'my-prefix.time-to-first-byte.mean': 121,
-                'my-prefix.time-to-first-byte.median': 110,
+                'my-prefix.server-response-time.min': 50,
+                'my-prefix.server-response-time.max': 200,
+                'my-prefix.server-response-time.mean': 121,
+                'my-prefix.server-response-time.median': 110,
             },
             expect.any(Function)
         );

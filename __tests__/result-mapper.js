@@ -10,7 +10,7 @@ describe('result-mapper', () => {
             'first-meaningful-paint': 825,
             'speed-index': 991,
             'estimated-input-latency': 12,
-            'time-to-first-byte': 109,
+            'server-response-time': 109,
             'first-cpu-idle': 900,
             interactive: 903,
             'network-requests': 2,

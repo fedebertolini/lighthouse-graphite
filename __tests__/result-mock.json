@@ -222,10 +222,10 @@
                 ]
             }
         },
-        "time-to-first-byte": {
-            "id": "time-to-first-byte",
+        "server-response-time": {
+            "id": "server-response-time",
             "title": "Server response times are low (TTFB)",
-            "description": "Time To First Byte identifies the time at which your server sends a response. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/ttfb).",
+            "description": "Server response time identifies the time at which your server sends a response. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/ttfb).",
             "score": 1,
             "scoreDisplayMode": "binary",
             "numericValue": 109.03200000000001,
@@ -1761,7 +1761,7 @@
                     "group": "load-opportunities"
                 },
                 {
-                    "id": "time-to-first-byte",
+                    "id": "server-response-time",
                     "weight": 0,
                     "group": "load-opportunities"
                 },
@@ -2429,18 +2429,18 @@
                     "path": "audits[estimated-input-latency].displayValue"
                 }
             ],
-            "lighthouse-core/audits/time-to-first-byte.js | title": [
-                "audits[time-to-first-byte].title"
+            "lighthouse-core/audits/server-response-time.js | title": [
+                "audits[server-response-time].title"
             ],
-            "lighthouse-core/audits/time-to-first-byte.js | description": [
-                "audits[time-to-first-byte].description"
+            "lighthouse-core/audits/server-response-time.js | description": [
+                "audits[server-response-time]].description"
             ],
-            "lighthouse-core/audits/time-to-first-byte.js | displayValue": [
+            "lighthouse-core/audits/server-response-time.js | displayValue": [
                 {
                     "values": {
                         "timeInMs": 109.03200000000001
                     },
-                    "path": "audits[time-to-first-byte].displayValue"
+                    "path": "audits[server-response-time].displayValue"
                 }
             ],
             "lighthouse-core/audits/metrics/first-cpu-idle.js | title": [

@@ -3,7 +3,7 @@ exports.map = result => ({
     'first-meaningful-paint': Math.floor(result.audits['first-meaningful-paint'].numericValue),
     'speed-index': Math.floor(result.audits['speed-index'].numericValue),
     'estimated-input-latency': Math.floor(result.audits['estimated-input-latency'].numericValue),
-    'time-to-first-byte': Math.floor(result.audits['time-to-first-byte'].numericValue),
+    'server-response-time': Math.floor(result.audits['server-response-time'].numericValue),
     'first-cpu-idle': Math.floor(result.audits['first-cpu-idle'].numericValue),
     interactive: Math.floor(result.audits['interactive'].numericValue),
     'network-requests': result.audits['network-requests'].numericValue,

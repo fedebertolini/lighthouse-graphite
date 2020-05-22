@@ -34,8 +34,8 @@ lighthouse.example_com.speed-index.min 869
 lighthouse.example_com.speed-index.median 900
 lighthouse.example_com.estimated-input-latency.min 12
 lighthouse.example_com.estimated-input-latency.median 12
-lighthouse.example_com.time-to-first-byte.min 106
-lighthouse.example_com.time-to-first-byte.median 107
+lighthouse.example_com.server-response-time.min 106
+lighthouse.example_com.server-response-time.median 107
 lighthouse.example_com.first-cpu-idle.min 824
 lighthouse.example_com.first-cpu-idle.median 825
 lighthouse.example_com.interactive.min 824
@@ -66,7 +66,7 @@ The list of the collected metrics is:
 -   first-meaningful-paint
 -   speed-index
 -   estimated-input-latency
--   time-to-first-byte
+-   server-response-time
 -   first-cpu-idle
 -   interactive
 -   network-requests
