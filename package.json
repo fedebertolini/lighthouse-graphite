@@ -1,6 +1,6 @@
 {
   "name": "lighthouse-graphite",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "description": "NodeJS app that get metrics from a website using lighthouse and sends them to a graphite service",
   "main": "src/index.js",
   "preferGlobal": true,
@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/fedebertolini/lighthouse-graphite#readme",
   "dependencies": {
-    "chrome-launcher": "~0.13.2",
+    "chrome-launcher": "~0.13.4",
     "graphite": "~0.1.4",
-    "lighthouse": "~5.6.0",
+    "lighthouse": "^5.6.0",
     "minimist": "~1.2.5"
   },
   "devDependencies": {
-    "jest": "~26.0.1"
+    "jest": "~26.5.0"
   }
 }
