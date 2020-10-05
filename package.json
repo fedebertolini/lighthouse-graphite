@@ -1,6 +1,6 @@
 {
   "name": "lighthouse-graphite",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "NodeJS app that get metrics from a website using lighthouse and sends them to a graphite service",
   "main": "src/index.js",
   "preferGlobal": true,
