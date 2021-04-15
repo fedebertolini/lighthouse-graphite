@@ -9,7 +9,7 @@ exports.run = (url, options, config = null) => {
             .then(result => chrome.kill().then(() => mapper.map(result.lhr)))
             .catch(error => {
                 if (chrome) {
-                    chrome.kill();
+                    chrome.kill().catch(() => { });
                 }
                 Promise.reject(error);
             });

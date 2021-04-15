@@ -57,22 +57,22 @@ const results = [];
 (async () => {
     try {
         for (let i = 0; i < runs; i++) {
-            const result = await runner.run(url, options, config);
-            // lighthouse sometimes delivers no results due to PROTOCOL_TIMEOUT
-            if (results !== undefined) {
-                results.push(result);
-            } else {
-                console.log('No lighthouse results for this run.')
+            try {
+                const result = await runner.run(url, options, config);
+                // lighthouse sometimes delivers no results. TODO check the reason
+                if (results !== undefined) {
+                    results.push(result);
+                }
+            } catch (err) {
+                console.error(err);
             }
         }
         if (results.length > 0) {
             const aggregatedResults = aggregate(results, metricsBlacklist, functionBlacklist);
-
             if (graphiteHost) {
                 const graphiteClient = new GraphiteClient(graphiteHost, graphitePrefix);
                 await graphiteClient.send(aggregatedResults);
             }
-
             console.log(aggregatedResults);
         } else {
             console.error('No lighthouse results.')
@@ -80,4 +80,4 @@ const results = [];
     } catch (error) {
         console.error(error);
     }
-})();
+})().catch(() => {});
