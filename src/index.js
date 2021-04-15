@@ -61,17 +61,22 @@ const results = [];
             // lighthouse sometimes delivers no results due to PROTOCOL_TIMEOUT
             if (results !== undefined) {
                 results.push(result);
+            } else {
+                console.log('No lighthouse results for this run.')
             }
         }
+        if (results.length > 0) {
+            const aggregatedResults = aggregate(results, metricsBlacklist, functionBlacklist);
 
-        const aggregatedResults = aggregate(results, metricsBlacklist, functionBlacklist);
+            if (graphiteHost) {
+                const graphiteClient = new GraphiteClient(graphiteHost, graphitePrefix);
+                await graphiteClient.send(aggregatedResults);
+            }
 
-        if (graphiteHost) {
-            const graphiteClient = new GraphiteClient(graphiteHost, graphitePrefix);
-            await graphiteClient.send(aggregatedResults);
+            console.log(aggregatedResults);
+        } else {
+            console.error('No lighthouse results.')
         }
-
-        console.log(aggregatedResults);
     } catch (error) {
         console.error(error);
     }
