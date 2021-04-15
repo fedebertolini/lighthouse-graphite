@@ -58,7 +58,10 @@ const results = [];
     try {
         for (let i = 0; i < runs; i++) {
             const result = await runner.run(url, options, config);
-            results.push(result);
+            // lighthouse sometimes delivers no results due to PROTOCOL_TIMEOUT
+            if (results !== undefined) {
+                results.push(result);
+            }
         }
 
         const aggregatedResults = aggregate(results, metricsBlacklist, functionBlacklist);
