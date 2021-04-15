@@ -1,4 +1,6 @@
 module.exports = (resultsArray = [], metricsBlacklist = [], functionBlacklist = []) => {
+    // filter any none values
+    resultsArray = resultsArray.filter(x => x)
     if (!resultsArray.length) {
         throw new Error('param `resultsArray` must be an array with at least one element');
     }
