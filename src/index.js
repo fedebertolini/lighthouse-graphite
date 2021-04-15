@@ -31,6 +31,20 @@ const options = {
 };
 const config = {
     extends: 'lighthouse:default',
+    settings: {
+        throttlingMethod: "provided",
+        onlyAudits: [
+            "largest-contentful-paint",
+            "total-blocking-time",
+            "cumulative-layout-shift",
+            "first-contentful-paint",
+            "speed-index",
+            "interactive",
+            "dom-size",
+            "server-response-time",
+            "metrics"
+        ]
+    },
     passes: [
         {
             blockedUrlPatterns,
