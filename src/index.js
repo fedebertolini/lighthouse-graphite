@@ -33,6 +33,7 @@ const config = {
     extends: 'lighthouse:default',
     settings: {
         throttlingMethod: "provided",
+        maxWaitForFcp: 45000,
         onlyAudits: [
             "largest-contentful-paint",
             "total-blocking-time",
