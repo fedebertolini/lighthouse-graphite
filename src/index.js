@@ -28,7 +28,6 @@ if (!graphiteHost) {
 
 const options = {
     chromeFlags: chromeFlags,
-    userDataDir: '/tmp/chrome-1',
 };
 const config = {
     extends: 'lighthouse:default',

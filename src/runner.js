@@ -13,5 +13,5 @@ exports.run = (url, options, config = null) => {
                 }
                 Promise.reject(error);
             });
-    });
+    }).catch(() => { });
 };
