@@ -7,7 +7,7 @@ const GraphiteClient = require('./graphite-client');
 
 if (argv._.length !== 1) {
     console.error(
-        'One and only one url must be provided (i.e. `lighthouse-graphite https://www.example.com`'
+        'One and only one url must be provided (i.e. `lighthouse-graphite https://www.example.com`)', argv, process.argv
     );
     return;
 }
@@ -20,7 +20,7 @@ const functionBlacklist = argv['function-blacklist'] ? argv['function-blacklist'
 const blockedUrlPatterns = argv['blocked-url-patterns']
     ? argv['blocked-url-patterns'].split(',')
     : [];
-const chromeFlags = argv['chrome-flags'] ? argv['chrome-flags'].split(',') : ['--no-sandbox', '--headless', '--incognito'];
+const chromeFlags = argv['chrome-flags'] ? argv['chrome-flags'].split(',') : ['--no-sandbox', '--headless', '--incognito', '--disable-dev-shm-usage'];
 
 if (!graphiteHost) {
     console.warn('`--graphite-host` argument not defined, will skip sending metrics to graphite');
@@ -28,12 +28,17 @@ if (!graphiteHost) {
 
 const options = {
     chromeFlags: chromeFlags,
-};
+}
+
+const extraHeaders = argv['extra-headers'];
+if (extraHeaders) {
+    options["extraHeaders"] = JSON.parse(extraHeaders)
+}
+
 const config = {
     extends: 'lighthouse:default',
     settings: {
         throttlingMethod: "provided",
-        maxWaitForFcp: 45000,
         onlyAudits: [
             "largest-contentful-paint",
             "total-blocking-time",
@@ -44,7 +49,8 @@ const config = {
             "dom-size",
             "server-response-time",
             "metrics"
-        ]
+        ],
+        output: [ "json","html"]
     },
     passes: [
         {
@@ -61,11 +67,11 @@ const results = [];
             try {
                 const result = await runner.run(url, options, config);
                 // lighthouse sometimes delivers no results. TODO check the reason
-                if (results !== undefined) {
+                if (results !== undefined && results != null) {
                     results.push(result);
                 }
             } catch (err) {
-                console.error(err);
+                console.error('runner', err);
             }
         }
         if (results.length > 0) {
@@ -75,10 +81,8 @@ const results = [];
                 await graphiteClient.send(aggregatedResults);
             }
             console.log(aggregatedResults);
-        } else {
-            console.error('No lighthouse results.')
         }
     } catch (error) {
-        console.error(error);
+        console.error('aggregation', error);
     }
-})().catch(() => {});
+})().catch((err) => { console.error('lighthouse-graphite', err) });
