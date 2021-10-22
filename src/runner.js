@@ -1,5 +1,5 @@
 const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
+const puppeteer = require('puppeteer');
 const mapper = require('./result-mapper');
 const fs = require('fs');
 
@@ -10,26 +10,43 @@ function wait(val) {
     return new Promise(resolve => setTimeout(resolve, val));
 }
 
-exports.run = (url, options, config = null) => {
-    return chromeLauncher.launch({ chromeFlags: options.chromeFlags }).then(async chrome => {
-        options.port = chrome.port;
-        try {
-            results = await lighthouse(url, options, config);
-        } catch (e) {
-            console.error("lighthouse", e);
-        }
+const setupBrowser = async (url, userAgent, cookies) => {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    if (userAgent) {
+        await page.setUserAgent(userAgent);
+    }
+    for (const cookie of cookies) {
+        await page.setCookie({...cookie, url});
+    }
+    return browser;
+}
+
+exports.run = async (url, userAgent, cookies, options, report, config = null) => {
+    let browser = null;
+    let page = null;
+    try {
+        browser = await setupBrowser(url, userAgent, cookies);
+        page = (await browser.pages())[0];
+        options.port = (new URL(browser.wsEndpoint())).port;
+        options.output = 'html';
+        const results = await lighthouse(url, options, config);
+
         await wait(500);
-        chrome.kill();
-        if (results){
 
-            filename = '/sitespeed.io/report_'+Date.now().toString()+'.html';
-            fs.writeFile(filename, results.report[1], function (err) {
-                if (err) return console.error(err);
-                console.log('write report to ' + filename);
-            });
-
+        if (results) {
+            if (report) {
+                fs.writeFile(report, results.report, function (err) {
+                    if (err) return console.error(err);
+                    console.log('write report to ' + report);
+                });
+            }
             return mapper.map(results.lhr);
         }
-
-    }).catch((err) => { console.error('chromium', err) });
+    } catch (error) {
+        console.error('lighthouse ', error);
+    } finally {
+        await page.close();
+        await browser.close();
+    }
 };

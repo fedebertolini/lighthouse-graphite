@@ -4,6 +4,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const runner = require('./runner');
 const aggregate = require('./result-aggregation');
 const GraphiteClient = require('./graphite-client');
+const desktopConfig = require('lighthouse/lighthouse-core/config/lr-desktop-config.js');
 
 if (argv._.length !== 1) {
     console.error(
@@ -21,6 +22,8 @@ const blockedUrlPatterns = argv['blocked-url-patterns']
     ? argv['blocked-url-patterns'].split(',')
     : [];
 const chromeFlags = argv['chrome-flags'] ? argv['chrome-flags'].split(',') : ['--no-sandbox', '--headless', '--incognito', '--disable-dev-shm-usage'];
+const reportFolder = argv['report-folder'] || '/sitespeed.io';
+const userAgent = argv['user-agent'];
 
 if (!graphiteHost) {
     console.warn('`--graphite-host` argument not defined, will skip sending metrics to graphite');
@@ -35,7 +38,34 @@ if (extraHeaders) {
     options["extraHeaders"] = JSON.parse(extraHeaders)
 }
 
-const config = {
+const parseExtraCookies = (extraCookies) => {
+    const result = []
+    if (!extraCookies) {
+        return result;
+    }
+    const cookies = JSON.parse(extraCookies)
+    for (const cookie of cookies) {
+        if (typeof cookie === 'string') {
+            const pair = cookie.split('=')
+            result.push({ name: pair[0], value: pair[1] })
+        } else {
+            result.push(cookie)
+        }
+    }
+    return result
+}
+
+const cookies = parseExtraCookies(argv['extra-cookies']);
+
+const parseTarget = (target) => {
+    target = target || 'default';
+    return ['default', 'mobile', 'desktop'].includes(target) ? target : 'default';
+};
+
+const target = parseTarget(argv['target']);
+
+// default is pre-configured to run full speed without throttling of CPU and network
+const configDefault = {
     extends: 'lighthouse:default',
     settings: {
         throttlingMethod: "provided",
@@ -50,14 +80,22 @@ const config = {
             "server-response-time",
             "metrics"
         ],
-        output: [ "json","html"]
     },
-    passes: [
-        {
-            blockedUrlPatterns,
-        },
-    ],
 };
+
+const configMobile = {
+    extends: 'lighthouse:default',
+};
+
+const getConfig = (target) => {
+    return {
+        mobile: configMobile,
+        desktop: desktopConfig,
+        default: configDefault
+    }[target];
+}
+
+const config = getConfig(target);
 
 const results = [];
 
@@ -65,7 +103,8 @@ const results = [];
     try {
         for (let i = 0; i < runs; i++) {
             try {
-                const result = await runner.run(url, options, config);
+                const report = reportFolder+'/report_'+Date.now().toString()+'.html';
+                const result = await runner.run(url, userAgent, cookies, options, report, config);
                 // lighthouse sometimes delivers no results. TODO check the reason
                 if (results !== undefined && results != null) {
                     results.push(result);
